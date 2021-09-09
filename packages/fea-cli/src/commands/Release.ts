@@ -9,6 +9,9 @@ import {
 
 const d = debug('release');
 
+const ACTION_CREATE = 'create';
+const ACTION_MERGE = 'merge';
+
 @Implements<Command>()
 export class Release implements CommandInstance {
     static command = 'release [action]';
