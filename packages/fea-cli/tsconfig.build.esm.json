@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "outDir": "./build.esm/",
+    "types": []
+  },
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "node_modules",
+    "build",
+    "build:esm",
+    "build:cjs",
+    
+    
+    ,
+    ,
+    "**/**/__test__/**",
+    "**/**/*.test.ts"
+  ]
+}

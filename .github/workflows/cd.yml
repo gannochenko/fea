@@ -1,0 +1,34 @@
+name: CD
+
+on:
+    push:
+        branches:
+            - master
+            - beta
+        paths:
+            - 'packages/**'
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Install common
+              run: yarn install
+            - name: Install peers
+              run: yarn run install-peers
+            - name: Install (fea-cli)
+              working-directory: ./packages/fea-cli
+              run: yarn install
+            - name: Install peers (fea-cli)
+              working-directory: ./packages/fea-cli
+              run: yarn install-peers
+            - name: Build (fea-cli)
+              working-directory: ./packages/fea-cli
+              run: yarn build
+            - name: Publish
+              run: yarn multi-semantic-release
+              env:
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.CICD }}

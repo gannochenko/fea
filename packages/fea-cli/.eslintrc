@@ -1,0 +1,58 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "prettier",
+    "import",
+
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "airbnb-base",
+    "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": "warn",
+    "import/prefer-default-export": "off",
+    // "no-param-reassign": "off",
+    "class-methods-use-this": "off",
+    "no-use-before-define": ["error", { "functions": false }],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "lines-between-class-members": "off",
+    "no-lonely-if": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "no-useless-constructor": "off",
+    "no-console": ["error", {
+      "allow": ["error"]
+    }],
+
+    "import/extensions": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "globals": {
+  },
+  "settings": {
+
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts", ".tsx"]
+      }
+    }
+  },
+  "env": {
+    "es2021": true,
+    "browser": true,
+    "node": true,
+    "jest": true
+  }
+}

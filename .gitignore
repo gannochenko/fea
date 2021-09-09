@@ -1,0 +1,8 @@
+node_modules/
+*.log
+*.tar.gz
+.idea/workspace.xml
+.idea/libraries
+packages/**/build/*
+packages/**/build.esm/*
+packages/**/build.cjs/*

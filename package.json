@@ -1,0 +1,20 @@
+{
+    "devDependencies": {
+        "husky": "^7.0.2",
+        "multi-semantic-release": "^2.8.5",
+        "prettier": "^2.4.0",
+        "pretty-quick": "^3.1.1"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "private": true,
+    "workspaces": [
+        "packages/fea-cli"
+    ],
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    }
+}
