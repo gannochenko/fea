@@ -37,11 +37,11 @@ export class Application {
                 '-v, --version',
                 'output the current version',
             )
-            .description("Fea\n\n*** Powered by git ***")
+            .description("Fea\n\n*** Powered by git and GitHub API ***")
             .on('--help', () => {
                 console.log(`
 ✉️  Contact author: https://www.linkedin.com/in/gannochenko/
-🐛 Submit issue or request feature: https://github.com/gannochenko/fea-cli/issues
+🐞 Submit issue or request feature: https://github.com/gannochenko/fea-cli/issues
 `);
             });
 

@@ -40,7 +40,7 @@ export class RC {
 
             try {
                 this.config = await import(rcFile);
-            } catch(e) {
+            } catch(e: any) {
                 console.error(
                     `Was not able to import the RC file located at: ${rcFile}: ${e.message}`,
                 );

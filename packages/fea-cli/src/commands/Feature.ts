@@ -9,7 +9,7 @@ import {
 
 const d = debug('feature');
 
-const ACTION_CREATE = 'create';
+const ACTION_CHECKOUT = 'checkout';
 const ACTION_SUBMIT = 'submit';
 const ACTION_MERGE = 'merge';
 const ACTION_INFO = 'info';
@@ -18,13 +18,11 @@ const ACTION_INFO = 'info';
 export class Feature implements CommandInstance {
     static command = 'feature [action] [id]';
     static alias = 'f';
-    static description = `Create, submit and merge a feature. [action] may be one of:
-
-    * ${ACTION_CREATE} - create a local feature branch
-    * ${ACTION_SUBMIT} - create a feature PR based on the current feature branch
-    * ${ACTION_MERGE} - merge the feature PR that matches the current feature branch
-    * ${ACTION_INFO} - get information about the current feature
-`;
+    static description = `Do operations with inactive branches. The [action] argument may be one of:
+    * ${ACTION_CHECKOUT} - select a feature and make it current
+    * ${ACTION_SUBMIT} - select a feature and submit for reviewing
+    * ${ACTION_MERGE} - select a feature and merge into the development branch
+    * ${ACTION_INFO} - select a feature and display information`;
     static options: Command['options'] = [
         // ['-o, --output <path>', 'Output file'],
     ];

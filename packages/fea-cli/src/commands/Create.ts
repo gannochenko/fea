@@ -108,6 +108,8 @@ export class Create implements CommandInstance {
         await git.createBranch(branchName, branchDescription);
         await git.pushSetUpstream(branchName);
 
+        console.log(`Feature created: ${branchName}`);
+
         d('Executed successfully');
     }
 }

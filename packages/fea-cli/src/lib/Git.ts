@@ -1,13 +1,15 @@
 import execa from 'execa';
 import { isCommandAvailable, sanitizeString } from './utils';
+import debug from 'debug';
 
 export type GitBranchDescriptionType = {
     title: string;
     type: string;
     id: string;
     scope?: string;
-    // [k: string]: unknown;
 };
+
+const d = debug('git');
 
 export class Git {
     private isGitAvailable?: boolean;
@@ -51,10 +53,20 @@ export class Git {
     private async execute(args: string[]) {
         const result = await execa('git', args, {
             cwd: this.repositoryPath,
-            stdio: ['ignore', 'ignore', 'ignore'],
+            stdio: ['inherit', 'pipe', 'pipe'],
         });
 
-        console.log(result);
+        d(`Executing: git ${args.join(' ')}`);
+
+        if (result.failed) {
+            d('Command execution failed');
+            d(result.stderr);
+            throw new Error(`Command failed: git ${args.join(' ')}`);
+        } else {
+            d('Command execution successful');
+            d(result.stdout);
+            d(result.stderr);
+        }
     }
 
     private async maybeFail() {
