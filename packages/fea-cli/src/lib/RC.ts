@@ -3,11 +3,20 @@ import findUpAll from 'find-up-all';
 import debug from 'debug';
 
 type RCType = {
+    developmentBranch: string;
+    releaseBranch: string;
+    ticketIdPrefix: string;
+    ticketViewURLTemplate?: string;
+    releasePRName: string;
 };
 
 const d = debug('app');
 
 const defaultSettings = {
+    developmentBranch: 'dev',
+    releaseBranch: 'master',
+    ticketIdPrefix: '',
+    releasePRName: 'Next release',
 };
 
 export class RC {

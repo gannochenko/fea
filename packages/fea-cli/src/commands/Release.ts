@@ -1,5 +1,5 @@
 import debug from 'debug';
-import { Application } from '../lib/application';
+import { Application } from '../lib/Application';
 import {
     CommandInstance,
     Command,
