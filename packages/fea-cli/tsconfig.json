@@ -19,7 +19,6 @@
         "baseUrl": ".",
         "noUnusedLocals": false,
         "noUnusedParameters": false,
-        
         "declaration": true
     },
     "exclude": [
