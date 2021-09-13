@@ -1,4 +1,4 @@
-import { Application } from '../lib/application';
+import { Application } from '../lib/Application';
 
 export type CommandArgumentsType = Record<string, string>;
 

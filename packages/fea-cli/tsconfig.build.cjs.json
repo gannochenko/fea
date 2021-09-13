@@ -10,10 +10,6 @@
     "build",
     "build:esm",
     "build:cjs",
-    
-    
-    
-    ,
     "**/**/__test__/**",
     "**/**/*.test.ts"
   ]

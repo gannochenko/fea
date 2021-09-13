@@ -3,11 +3,20 @@ import findUpAll from 'find-up-all';
 import debug from 'debug';
 
 type RCType = {
+    developmentBranch: string;
+    releaseBranch: string;
+    ticketIdPrefix: string;
+    ticketViewURLTemplate?: string;
+    releasePRName: string;
 };
 
-const d = debug('app');
+const d = debug('rc');
 
 const defaultSettings = {
+    developmentBranch: 'dev',
+    releaseBranch: 'master',
+    ticketIdPrefix: '',
+    releasePRName: 'Next release',
 };
 
 export class RC {
@@ -25,13 +34,13 @@ export class RC {
                 return defaultSettings;
             }
 
-            const [ rcFile ] = files;
+            const [rcFile] = files;
 
             d(`RC file found at: ${rcFile}`);
 
             try {
                 this.config = await import(rcFile);
-            } catch(e) {
+            } catch (e: any) {
                 console.error(
                     `Was not able to import the RC file located at: ${rcFile}: ${e.message}`,
                 );
@@ -40,6 +49,9 @@ export class RC {
             }
         }
 
-        return { ...defaultSettings, ...this.config };
+        const config = { ...defaultSettings, ...this.config };
+        d('Config', config);
+
+        return config;
     }
 }
