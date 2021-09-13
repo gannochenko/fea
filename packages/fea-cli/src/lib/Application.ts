@@ -37,15 +37,16 @@ export class Application {
                 '-v, --version',
                 'output the current version',
             )
-            .description("Fea\n\n*** Powered by git ***")
+            .description('Fea\n\n*** Powered by git and GitHub API ***')
             .on('--help', () => {
+                // eslint-disable-next-line no-console
                 console.log(`
 ✉️  Contact author: https://www.linkedin.com/in/gannochenko/
-🐛 Submit issue or request feature: https://github.com/gannochenko/fea-cli/issues
+🐞 Submit issue or request feature: https://github.com/gannochenko/fea-cli/issues
 `);
             });
 
-        commands.forEach(CommandClass => {
+        commands.forEach((CommandClass) => {
             const { command, alias, description, options } = CommandClass;
             const commandDeclaration = program
                 .command(command)
@@ -53,15 +54,15 @@ export class Application {
                 .description(description);
 
             if (options) {
-                options.forEach(option => {
+                options.forEach((option) => {
                     commandDeclaration.option(option[0], option[1]);
                 });
             }
 
             commandDeclaration.action(async (...args) =>
-                    // something: string,
-                    // anything: string,
-                    // commanderCommand: CommanderCommand,
+                // something: string,
+                // anything: string,
+                // commanderCommand: CommanderCommand,
                 {
                     const currentCommand: CommanderCommand = args.pop();
 
@@ -75,7 +76,7 @@ export class Application {
                     // @ts-ignore
                     // eslint-disable-next-line no-underscore-dangle
                     const commandArguments = currentCommand._args as Argument[];
-                    commandArguments.forEach(argument => {
+                    commandArguments.forEach((argument) => {
                         argsValues[argument.name()] = args.shift();
                     });
 
