@@ -138,6 +138,24 @@ export class Git {
         await this.execute(['pull', remote, branch]);
     }
 
+    public async getBranches() {
+        await this.ensureAvailableOrFail();
+        const { stdout } = await this.execute([
+            'show-branch',
+            '--no-color',
+            '--list',
+        ]);
+
+        let matches = stdout.match(/\[([^\[\]]+)\]/gm);
+        if (matches) {
+            matches = matches.map((match) =>
+                match.replace('[', '').replace(']', ''),
+            );
+        }
+
+        return matches || [];
+    }
+
     private async isAvailable() {
         if (this.isGitAvailable === undefined) {
             this.isGitAvailable = await isCommandAvailable('git -h');
