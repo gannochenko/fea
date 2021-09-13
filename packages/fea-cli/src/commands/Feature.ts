@@ -16,16 +16,14 @@ const ACTION_INFO = 'info';
 
 @Implements<Command>()
 export class Feature implements CommandInstance {
-    static command = 'feature [action] [id]';
+    static command = 'feature [action]';
     static alias = 'f';
     static description = `Do operations with inactive branches. The [action] argument may be one of:
     * ${ACTION_CHECKOUT} - select a feature and make it current
     * ${ACTION_SUBMIT} - select a feature and submit for reviewing
     * ${ACTION_MERGE} - select a feature and merge into the development branch
     * ${ACTION_INFO} - select a feature and display information`;
-    static options: Command['options'] = [
-        // ['-o, --output <path>', 'Output file'],
-    ];
+    static options: Command['options'] = [];
 
     constructor(
         private application: Application,

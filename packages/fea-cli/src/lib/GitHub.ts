@@ -30,6 +30,8 @@ type GitHubMergePRType = GitHubRemoteInfoType & {
     pull_number: number;
     // eslint-disable-next-line camelcase
     commit_title: string;
+    // eslint-disable-next-line camelcase
+    merge_method?: 'squash' | 'merge' | 'rebase';
 };
 
 const d = debug('GitHub');
