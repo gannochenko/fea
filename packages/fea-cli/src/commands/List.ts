@@ -10,6 +10,7 @@ import {
 import { RC } from '../lib/RC';
 import { Git } from '../lib/Git';
 import { getBranchOrFail } from '../lib/utils';
+import { getFeatureList } from '../lib/getFeatureList';
 
 const d = debug('list');
 
@@ -27,42 +28,11 @@ export class List implements CommandInstance {
     ) {}
 
     async execute() {
-        const git = new Git();
-
-        const branch = await getBranchOrFail(git);
-
-        const config = await RC.getConfig();
-
-        const { developmentBranch, releaseBranch } = config;
-
-        const list = await git.getBranches();
-        const result: ChoiceOptions[] = [];
-
-        // eslint-disable-next-line no-restricted-syntax
-        for (const branchItem of list) {
-            if (
-                branchItem !== developmentBranch &&
-                branchItem !== releaseBranch
-            ) {
-                try {
-                    // eslint-disable-next-line no-await-in-loop
-                    const info = await git.getBranchInfo(branchItem);
-                    if (info && info.description) {
-                        result.push({
-                            name: `${Git.composeCommitMessage(
-                                info.description,
-                                undefined,
-                            )} (${info.name})`,
-                            value: branchItem,
-                        });
-                    }
-                } catch (e) {}
-            }
-        }
+        const featureList = await getFeatureList();
 
         // eslint-disable-next-line no-console
         console.log('Current features under development:\n');
-        result.forEach((info) => {
+        featureList.forEach((info) => {
             // eslint-disable-next-line no-console
             console.log(`   * ${info.name}`);
         });

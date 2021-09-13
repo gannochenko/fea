@@ -1,4 +1,5 @@
 import debug from 'debug';
+import inquirer from 'inquirer';
 import { Application } from '../lib/Application';
 import {
     CommandInstance,
@@ -6,23 +7,25 @@ import {
     Implements,
     CommandArgumentsType,
 } from './type';
+import { Git } from '../lib/Git';
+import { RC } from '../lib/RC';
+import { getRemoteOrFail } from '../lib/utils';
+import { GitHub } from '../lib/GitHub';
+import { getFeatureList } from '../lib/getFeatureList';
+import { submitFeature } from '../lib/submitFeature';
 
 const d = debug('feature');
 
-const ACTION_CHECKOUT = 'checkout';
 const ACTION_SUBMIT = 'submit';
 const ACTION_MERGE = 'merge';
-const ACTION_INFO = 'info';
 
 @Implements<Command>()
 export class Feature implements CommandInstance {
     static command = 'feature [action]';
     static alias = 'f';
     static description = `Do operations with inactive branches. The [action] argument may be one of:
-    * ${ACTION_CHECKOUT} - select a feature and make it current
     * ${ACTION_SUBMIT} - select a feature and submit for reviewing
-    * ${ACTION_MERGE} - select a feature and merge into the development branch
-    * ${ACTION_INFO} - select a feature and display information`;
+    * ${ACTION_MERGE} - select a feature and merge into the development branch`;
     static options: Command['options'] = [];
 
     constructor(
@@ -32,6 +35,38 @@ export class Feature implements CommandInstance {
     ) {}
 
     async execute() {
+        const { action } = this.args;
+
+        if ([ACTION_SUBMIT, ACTION_MERGE].indexOf(action) < 0) {
+            throw new Error(`Unknown action: ${action}`);
+        }
+
+        const git = new Git();
+
+        const featureList = await getFeatureList();
+
+        const answers = (await inquirer.prompt([
+            {
+                message: `Select a feature to ${action}`,
+                name: 'branchName',
+                type: 'list',
+                choices: featureList,
+                // default: '',
+            },
+        ])) as { branchName: string };
+
+        const { branchName } = answers;
+        if (branchName) {
+            if (action === ACTION_SUBMIT) {
+                await submitFeature(git, await git.getBranchInfo(branchName));
+            }
+
+            if (action === ACTION_MERGE) {
+            }
+        }
+
+        const github = new GitHub();
+
         d('Executed successfully');
     }
 }

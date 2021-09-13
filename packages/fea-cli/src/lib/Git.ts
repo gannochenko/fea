@@ -9,6 +9,11 @@ export type GitBranchDescriptionType = {
     scope?: string;
 };
 
+export type GitBranchType = {
+    name: string;
+    description?: GitBranchDescriptionType;
+};
+
 const d = debug('Git');
 
 export class Git {
@@ -54,10 +59,7 @@ export class Git {
         }
     }
 
-    public async getCurrentBranch(path?: string): Promise<{
-        name: string;
-        description?: GitBranchDescriptionType;
-    } | null> {
+    public async getCurrentBranch(): Promise<GitBranchType | null> {
         await this.ensureAvailableOrFail();
 
         const result = await this.execute(['branch']);
@@ -86,7 +88,7 @@ export class Git {
             `branch.${branchName}.description`,
         ]);
 
-        const info: { name: string; description?: GitBranchDescriptionType } = {
+        const info: GitBranchType = {
             name: branchName,
         };
 
