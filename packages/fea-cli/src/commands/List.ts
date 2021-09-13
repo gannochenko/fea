@@ -11,12 +11,12 @@ import { RC } from '../lib/RC';
 import { Git } from '../lib/Git';
 import { getBranchOrFail } from '../lib/utils';
 
-const d = debug('checkout');
+const d = debug('list');
 
 @Implements<Command>()
-export class Checkout implements CommandInstance {
-    static command = 'checkout';
-    static alias = 'c';
+export class List implements CommandInstance {
+    static command = 'list';
+    static alias = 'l';
     static description = '';
     static options: Command['options'] = [];
 
@@ -60,32 +60,14 @@ export class Checkout implements CommandInstance {
             }
         }
 
-        const answers = (await inquirer.prompt([
-            {
-                message: 'Switch to the feature:',
-                name: 'branchName',
-                type: 'list',
-                choices: result,
-                // default: '',
-            },
-        ])) as { branchName: string };
-
-        const { branchName } = answers;
-        if (branchName) {
-            if (await git.hasIndexedChanges()) {
-                await git.stashWithMessage(`stash:${branch.name}:stash`);
-            }
-
-            await git.checkout(branchName);
-
-            const stashId = await git.getStashIdByMessage(
-                `stash:${branchName}:stash`,
-            );
-            if (stashId && stashId.length) {
-                await git.stashApplyById(stashId);
-                await git.stashDropById(stashId);
-            }
-        }
+        // eslint-disable-next-line no-console
+        console.log('Current features under development:\n');
+        result.forEach((info) => {
+            // eslint-disable-next-line no-console
+            console.log(`   * ${info.name}`);
+        });
+        // eslint-disable-next-line no-console
+        console.log('');
 
         d('Executed successfully');
     }

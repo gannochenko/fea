@@ -156,6 +156,42 @@ export class Git {
         return matches || [];
     }
 
+    public async hasIndexedChanges() {
+        await this.ensureAvailableOrFail();
+        const { stdout } = await this.execute(['status']);
+        return stdout.indexOf('Changes to be committed') >= 0;
+    }
+
+    public async stashWithMessage(message: string) {
+        await this.ensureAvailableOrFail();
+        await this.execute(['stash', 'push', '-m', `${message}`]);
+    }
+
+    public async getStashIdByMessage(message: string): Promise<string | null> {
+        await this.ensureAvailableOrFail();
+        const { stdout } = await this.execute(['stash', 'list']);
+
+        const result = stdout.match(
+            new RegExp(`stash@{(\\d+)}: On .+: ${message}`, 'g'),
+        );
+        if (result && result[0]) {
+            const resultNext = result[0].match(/stash@{(\d+)}/);
+            return resultNext && resultNext[1] ? resultNext[1] : null;
+        }
+
+        return null;
+    }
+
+    public async stashApplyById(id: string) {
+        await this.ensureAvailableOrFail();
+        await this.execute(['stash', 'apply', id]);
+    }
+
+    public async stashDropById(id: string) {
+        await this.ensureAvailableOrFail();
+        await this.execute(['stash', 'drop', id]);
+    }
+
     private async isAvailable() {
         if (this.isGitAvailable === undefined) {
             this.isGitAvailable = await isCommandAvailable('git -h');

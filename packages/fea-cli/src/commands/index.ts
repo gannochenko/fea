@@ -5,6 +5,7 @@ import { Merge } from './Merge';
 import { Checkout } from './Checkout';
 import { Release } from './Release';
 import { Info } from './Info';
+import { List } from './List';
 
 export const commands = [
     Create,
@@ -14,4 +15,5 @@ export const commands = [
     Feature,
     Release,
     Info,
+    List,
 ];
