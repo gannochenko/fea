@@ -17,9 +17,7 @@ export class Create implements CommandInstance {
     static command = 'create';
     static alias = 'c';
     static description = `Create a feature`;
-    static options: Command['options'] = [
-        // ['-o, --output <path>', 'Output file'],
-    ];
+    static options: Command['options'] = [];
 
     constructor(
         private application: Application,
@@ -49,8 +47,7 @@ export class Create implements CommandInstance {
                         value: 'docs',
                     },
                     {
-                        name:
-                            'style (code formatting, no production code change)',
+                        name: 'style (code formatting, no production code change)',
                         value: 'style',
                     },
                     {

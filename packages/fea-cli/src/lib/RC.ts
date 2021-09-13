@@ -10,7 +10,7 @@ type RCType = {
     releasePRName: string;
 };
 
-const d = debug('app');
+const d = debug('rc');
 
 const defaultSettings = {
     developmentBranch: 'dev',
@@ -34,13 +34,13 @@ export class RC {
                 return defaultSettings;
             }
 
-            const [ rcFile ] = files;
+            const [rcFile] = files;
 
             d(`RC file found at: ${rcFile}`);
 
             try {
                 this.config = await import(rcFile);
-            } catch(e: any) {
+            } catch (e: any) {
                 console.error(
                     `Was not able to import the RC file located at: ${rcFile}: ${e.message}`,
                 );
@@ -49,6 +49,9 @@ export class RC {
             }
         }
 
-        return { ...defaultSettings, ...this.config };
+        const config = { ...defaultSettings, ...this.config };
+        d('Config', config);
+
+        return config;
     }
 }
