@@ -13,6 +13,7 @@ import { getRemoteOrFail } from '../lib/utils';
 import { GitHub } from '../lib/GitHub';
 import { getFeatureList } from '../lib/getFeatureList';
 import { submitFeature } from '../lib/submitFeature';
+import { mergeFeature } from '../lib/mergeFeature';
 
 const d = debug('feature');
 
@@ -57,11 +58,14 @@ export class Feature implements CommandInstance {
 
         const { branchName } = answers;
         if (branchName) {
+            const branch = await git.getBranchInfo(branchName);
+
             if (action === ACTION_SUBMIT) {
-                await submitFeature(git, await git.getBranchInfo(branchName));
+                await submitFeature(git, branch);
             }
 
             if (action === ACTION_MERGE) {
+                await mergeFeature(git, branch, { doCheckoutToDev: false });
             }
         }
 

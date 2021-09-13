@@ -12,6 +12,6 @@ fea release merge // merge current release +++
 ~~~
 
 ~~~
-fea feature submit // push the branch selecting from the list
+fea feature submit // push the branch selecting from the list +++
 fea feature merge // push the branch selecting from the list
 ~~~

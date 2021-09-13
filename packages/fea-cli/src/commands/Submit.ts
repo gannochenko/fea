@@ -7,10 +7,7 @@ import {
     CommandArgumentsType,
 } from './type';
 import { Git } from '../lib/Git';
-import { getBranchOrFail, getRemoteOrFail } from '../lib/utils';
-import { RC } from '../lib/RC';
-import { GitHub } from '../lib/GitHub';
-import { getTemplate } from '../lib/template';
+import { getBranchOrFail } from '../lib/utils';
 import { submitFeature } from '../lib/submitFeature';
 
 const d = debug('submit');
