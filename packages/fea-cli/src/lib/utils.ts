@@ -21,10 +21,11 @@ export const isCommandAvailable = async (cmd: string) => {
         stdio: 'ignore',
     })
         .then(() => true)
-        .catch((e) => {
-            // @ts-ignore
-            return e.code !== 'ENOENT';
-        });
+        .catch(
+            (e) =>
+                // @ts-ignore
+                e.code !== 'ENOENT',
+        );
 };
 
 export const getBranchOrFail = async (git: Git) => {

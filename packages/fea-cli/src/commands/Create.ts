@@ -105,6 +105,7 @@ export class Create implements CommandInstance {
         await git.createBranch(branchName, branchDescription);
         await git.pushSetUpstream(branchName);
 
+        // eslint-disable-next-line no-console
         console.log(`Feature created: ${branchName}`);
 
         d('Executed successfully');
