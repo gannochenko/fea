@@ -1,5 +1,4 @@
 import debug from 'debug';
-import inquirer from 'inquirer';
 import { Application } from '../lib/Application';
 import {
     CommandInstance,
@@ -8,9 +7,7 @@ import {
     CommandArgumentsType,
 } from './type';
 import { Git } from '../lib/Git';
-import { getBranchOrFail, getRemoteOrFail } from '../lib/utils';
-import { RC } from '../lib/RC';
-import { GitHub } from '../lib/GitHub';
+import { getBranchOrFail } from '../lib/utils';
 import { mergeFeature } from '../lib/mergeFeature';
 
 const d = debug('merge');
