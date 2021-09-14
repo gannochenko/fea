@@ -44,7 +44,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:gannochenko/fea-cli.git"
+        "url": "git@github.com:gannochenko/fea.git"
     },
     "publishConfig": {
         "access": "public"

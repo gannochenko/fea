@@ -1,5 +1,4 @@
 import debug from 'debug';
-import inquirer, { ChoiceOptions } from 'inquirer';
 import { Application } from '../lib/Application';
 import {
     CommandInstance,
@@ -7,9 +6,6 @@ import {
     Implements,
     CommandArgumentsType,
 } from './type';
-import { RC } from '../lib/RC';
-import { Git } from '../lib/Git';
-import { getBranchOrFail } from '../lib/utils';
 import { getFeatureList } from '../lib/getFeatureList';
 
 const d = debug('list');
@@ -18,7 +14,7 @@ const d = debug('list');
 export class List implements CommandInstance {
     static command = 'list';
     static alias = 'l';
-    static description = '';
+    static description = 'Display a list of features';
     static options: Command['options'] = [];
 
     constructor(
