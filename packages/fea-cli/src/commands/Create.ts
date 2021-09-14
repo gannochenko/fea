@@ -16,7 +16,7 @@ const d = debug('create');
 export class Create implements CommandInstance {
     static command = 'create';
     static alias = 'c';
-    static description = `Create a feature`;
+    static description = `Create a new feature`;
     static options: Command['options'] = [];
 
     constructor(
