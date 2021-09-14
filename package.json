@@ -1,4 +1,5 @@
 {
+    "name": "fea",
     "devDependencies": {
         "husky": "^7.0.2",
         "multi-semantic-release": "^2.8.5",
