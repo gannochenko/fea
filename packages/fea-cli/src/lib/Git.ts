@@ -75,6 +75,11 @@ export class Git {
         return this.getBranchInfo(name);
     }
 
+    public async push(branch: string) {
+        await this.ensureAvailableOrFail();
+        await this.execute(['push', 'origin', branch]);
+    }
+
     public async pushSetUpstream(branch: string) {
         await this.ensureAvailableOrFail();
         await this.execute(['push', '--set-upstream', 'origin', branch]);
@@ -192,6 +197,11 @@ export class Git {
     public async stashDropById(id: string) {
         await this.ensureAvailableOrFail();
         await this.execute(['stash', 'drop', id]);
+    }
+
+    public async commit(message: string) {
+        await this.ensureAvailableOrFail();
+        await this.execute(['commit', '-am', message]);
     }
 
     private async isAvailable() {
