@@ -13,9 +13,10 @@ const d = debug('push');
 
 @Implements<Command>()
 export class Push implements CommandInstance {
-    static command = 'push';
+    static command = 'push [message]';
     static alias = 'p';
-    static description = `Merge the currently active feature into the development branch`;
+    static description =
+        'Pushes the current changes to the current feature branch';
     static options: Command['options'] = [];
 
     constructor(
@@ -28,7 +29,9 @@ export class Push implements CommandInstance {
         const git = new Git();
         const { name } = await getBranchOrFail(git);
 
-        await git.commit('work in progress');
+        const message = this.args.message ?? 'work in progress';
+
+        await git.commit(message);
         await git.push(name);
 
         d('Executed successfully');
